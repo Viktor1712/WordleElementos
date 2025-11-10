@@ -21,6 +21,7 @@ export default function GameBoard({ length }) {
       });
   }, [length]);
 
+  // 🔹 Escuchar el teclado y limpiar correctamente al reiniciar
   useEffect(() => {
     const handleKey = (e) => {
       if (gameOver) return;
@@ -32,7 +33,7 @@ export default function GameBoard({ length }) {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [currentGuess, gameOver]);
+  }, [currentGuess, gameOver, length]);
 
   const handleSubmit = () => {
     if (gameOver || currentGuess.length !== length) return;
@@ -42,7 +43,7 @@ export default function GameBoard({ length }) {
     const statuses = Array(length).fill("absent");
     const targetCopy = [...targetArray];
 
-    // Primero marcamos las correctas
+    // 🔸 Marcamos las correctas
     guessArray.forEach((letter, i) => {
       if (targetArray[i] === letter) {
         statuses[i] = "correct";
@@ -50,7 +51,7 @@ export default function GameBoard({ length }) {
       }
     });
 
-    // Luego las que están presentes pero mal ubicadas
+    // 🔸 Luego las que están en la palabra pero en otra posición
     guessArray.forEach((letter, i) => {
       if (statuses[i] === "correct") return;
       const idx = targetCopy.indexOf(letter);
@@ -89,6 +90,13 @@ export default function GameBoard({ length }) {
 
   const startNewGame = () => {
     if (!wordList.length) return;
+
+    // 🛑 No permitir nuevo juego si no se terminó el actual
+    if (!gameOver) {
+      setMessage("⚠️ Termina la partida antes de comenzar un nuevo juego.");
+      return;
+    }
+
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
     setTarget(randomWord.toLowerCase());
     setGuesses([]);
