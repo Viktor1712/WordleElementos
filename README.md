@@ -1,22 +1,30 @@
 # 🎮 Wordle Elementos
 
-**Wordle Elementos** es una recreación interactiva del clásico juego *Wordle*, desarrollada con **React**, **Bootstrap** y **Framer Motion**.  
-Incluye tres versiones del juego:  
-- Wordle de **5 letras**  
-- Wordle de **6 letras**  
-- Wordle de **7 letras**
+**Wordle Elementos** es una recreación interactiva del clásico juego **Wordle**, desarrollada con **React**, **Bootstrap** y **Framer Motion**.  
+Incluye tres versiones del juego y un sistema de registro local para guardar tus partidas.
 
-Además, cuenta con un sistema de **registro de partidas** guardado en `localStorage`, animaciones fluidas y un diseño adaptable y elegante.
+---
+
+## 🧩 Modos de juego
+
+- 🔠 **Wordle 5** – Palabras de 5 letras.  
+- 🧱 **Wordle 6** – Palabras de 6 letras.  
+- 🧬 **Wordle 7** – Palabras de 7 letras.
+
+Cada modo tiene sus propias palabras y desafíos.  
+El juego guarda tu progreso y estadísticas en el **historial local** (`localStorage`).
 
 ---
 
 ## 🚀 Tecnologías utilizadas
 
-- ⚛️ **React** – Librería principal para la interfaz.  
-- 💄 **Bootstrap 5** – Para estilos y componentes visuales.  
-- 🎬 **Framer Motion** – Animaciones de las casillas.  
-- 💾 **localStorage** – Registro local de partidas.  
-- 🧩 **Create React App** – Entorno base del proyecto.
+| Tecnología | Descripción |
+|-------------|--------------|
+| ⚛️ **React** | Librería principal para construir la interfaz interactiva. |
+| 💄 **Bootstrap 5** | Estilos y componentes responsivos. |
+| 🎬 **Framer Motion** | Animaciones fluidas para las casillas y transiciones. |
+| 💾 **localStorage** | Persistencia del historial de partidas en el navegador. |
+| 🧩 **Create React App** | Entorno base para desarrollo con React. |
 
 ---
 
@@ -33,13 +41,13 @@ WordleElementos/
 │
 ├── src/
 │   ├── components/
-│   │   ├── Header.jsx        # Barra de navegación superior
-│   │   ├── GameBoard.jsx     # Lógica y render del tablero
-│   │   └── Registro.jsx      # Historial de partidas
+│   │   ├── Header.jsx        # Barra de navegación y selección de modo
+│   │   ├── GameBoard.jsx     # Lógica principal y renderizado del tablero
+│   │   ├── Registro.jsx      # Historial de partidas con localStorage
 │   │
-│   ├── App.jsx               # Enrutador principal y navegación
+│   ├── App.jsx               # Rutas y vistas principales
 │   ├── index.js              # Punto de entrada React
-│   ├── index.css             # Estilos generales
+│   ├── index.css             # Estilos globales
 │
 ├── package.json
 ├── README.md
@@ -48,28 +56,28 @@ WordleElementos/
 
 ---
 
-## ⚙️ Instalación y ejecución
+## ⚙️ Instalación y ejecución local
 
-Sigue estos pasos para ejecutar el proyecto en tu máquina local 👇
+Sigue estos pasos para ejecutar el proyecto en tu máquina 👇
 
 ### 1️⃣ Clona el repositorio
 ```bash
 git clone https://github.com/Viktor1712/WordleElementos.git
 ```
 
-### 2️⃣ Ingresa al directorio del proyecto
+### 2️⃣ Entra al directorio
 ```bash
 cd WordleElementos
 ```
 
-### 3️⃣ Instala las dependencias
+### 3️⃣ Instala dependencias
 ```bash
 npm install
 ```
 
-> Si ves algún error con `react-bootstrap`, asegúrate de instalarlo con:
+> Si aparece algún error, instala manualmente:
 > ```bash
-> npm install react-bootstrap@2 bootstrap@5 framer-motion
+> npm install react-bootstrap bootstrap framer-motion
 > ```
 
 ### 4️⃣ Inicia el servidor de desarrollo
@@ -77,55 +85,60 @@ npm install
 npm start
 ```
 
-El juego se abrirá automáticamente en tu navegador en:  
+El juego se abrirá automáticamente en tu navegador:
 👉 [http://localhost:3000](http://localhost:3000)
 
 ---
 
 ## 🕹️ Cómo jugar
 
-1. Elige el modo de juego desde la barra superior: **Wordle 5**, **Wordle 6** o **Wordle 7**.  
-2. Escribe una palabra del tamaño correspondiente y presiona **Enter** o el botón **Enviar**.  
-3. Los colores indican:
-   - 🟩 **Verde** → letra correcta en posición correcta.  
-   - 🟨 **Amarillo** → letra correcta en posición incorrecta.  
-   - ⬜ **Gris** → letra no presente.  
+1. Selecciona el modo (5, 6 o 7 letras) desde la barra superior.  
+2. Escribe tu intento y presiona **Enter** o **Enviar**.  
+3. Observa los colores de las casillas:
+   - 🟩 **Verde** → letra correcta y posición correcta.  
+   - 🟨 **Amarillo** → letra correcta en otra posición.  
+   - ⬜ **Gris** → letra no está en la palabra.  
 4. Tienes **5 intentos** para adivinar la palabra.  
-5. Cuando termines una partida (ganes o pierdas), puedes comenzar un **Nuevo Juego**.  
-   - Si intentas reiniciar antes de terminar, el sistema te pedirá que finalices la partida actual.
+5. Cuando termines, puedes iniciar una nueva partida.  
+   - Si intentas reiniciar antes, el sistema te pedirá que termines la actual.
 
 ---
 
-## 🧾 Registro de partidas
+## 🧾 Historial de partidas
 
-El juego guarda automáticamente tus resultados (ganado/perdido, longitud, fecha e intentos) en el **historial local** del navegador (`localStorage`).
+Cada partida se guarda automáticamente con:
+- Fecha y hora.  
+- Palabra objetivo.  
+- Intentos realizados.  
+- Resultado (ganado o perdido).  
 
-Puedes ver tu historial desde la sección **Registro** en la barra superior.
-
----
-
-## 🎨 Estilo y diseño
-
-- Colores y distribución inspirados en el *Wordle* original.  
-- Animaciones suaves en los cuadros de letras (efecto “flip”).  
-- Diseño adaptativo (responsive) mediante **Bootstrap 5**.
+Puedes consultarlo en la sección **📜 Registro** del menú principal.  
+Toda la información se guarda en `localStorage` (no se borra al cerrar el navegador).
 
 ---
 
-## 🧠 Mejoras futuras
+## 🎨 Diseño y animaciones
 
-- Ranking global o integración con base de datos.  
-- Modo oscuro / claro.  
-- Palabras temáticas (animales, países, etc.).  
-- Versión en inglés.
+- Inspirado en el diseño original de **Wordle**.  
+- Animaciones con **Framer Motion** para efecto “flip” en las letras.  
+- Diseño **responsive** y adaptable a diferentes pantallas.  
+
+---
+
+## 💡 Futuras mejoras
+
+- 🌐 Ranking global (con base de datos o API).  
+- 🌙 Modo oscuro / claro.  
+- 📚 Categorías temáticas (animales, países, etc.).  
+- 🏆 Sistema de logros o niveles.
 
 ---
 
 ## 👨‍💻 Autor
 
-Desarrollado por **Víctor Mejías**  
-📦 Repositorio: [https://github.com/Viktor1712/WordleElementos](https://github.com/Viktor1712/WordleElementos)
+**Desarrollado por:** [Víctor Mejías](https://github.com/Viktor1712)  
+📦 **Repositorio:** [WordleElementos](https://github.com/Viktor1712/WordleElementos)
 
 ---
 
-
+> 🧠 Proyecto educativo desarrollado con fines de práctica y aprendizaje de React y animaciones web.
