@@ -1,7 +1,7 @@
 # 🎮 Wordle Elementos
 
 **Wordle Elementos** es una recreación interactiva del clásico juego **Wordle**, desarrollada con **React**, **Bootstrap** y **Framer Motion**.  
-Incluye tres versiones del juego y un sistema de registro local para guardar tus partidas.
+Incluye tres versiones del juego y un sistema de estadísticas locales para guardar tu rendimiento.
 
 ---
 
@@ -12,7 +12,7 @@ Incluye tres versiones del juego y un sistema de registro local para guardar tus
 - 🧬 **Wordle 7** – Palabras de 7 letras.
 
 Cada modo tiene sus propias palabras y desafíos.  
-El juego guarda tu progreso y estadísticas en el **historial local** (`localStorage`).
+El juego guarda tu progreso y estadísticas en el **almacenamiento local** (`localStorage`).
 
 ---
 
@@ -23,7 +23,7 @@ El juego guarda tu progreso y estadísticas en el **historial local** (`localSto
 | ⚛️ **React** | Librería principal para construir la interfaz interactiva. |
 | 💄 **Bootstrap 5** | Estilos y componentes responsivos. |
 | 🎬 **Framer Motion** | Animaciones fluidas para las casillas y transiciones. |
-| 💾 **localStorage** | Persistencia del historial de partidas en el navegador. |
+| 💾 **localStorage** | Persistencia de las estadísticas del jugador. |
 | 🧩 **Create React App** | Entorno base para desarrollo con React. |
 
 ---
@@ -43,7 +43,7 @@ WordleElementos/
 │   ├── components/
 │   │   ├── Header.jsx        # Barra de navegación y selección de modo
 │   │   ├── GameBoard.jsx     # Lógica principal y renderizado del tablero
-│   │   ├── Registro.jsx      # Historial de partidas con localStorage
+│   │   ├── Stats.jsx         # Estadísticas del jugador (porcentaje de victorias, intentos, etc.)
 │   │
 │   ├── App.jsx               # Rutas y vistas principales
 │   ├── index.js              # Punto de entrada React
@@ -99,21 +99,20 @@ El juego se abrirá automáticamente en tu navegador:
    - 🟨 **Amarillo** → letra correcta en otra posición.  
    - ⬜ **Gris** → letra no está en la palabra.  
 4. Tienes **5 intentos** para adivinar la palabra.  
-5. Cuando termines, puedes iniciar una nueva partida.  
-   - Si intentas reiniciar antes, el sistema te pedirá que termines la actual.
+5. Al terminar, podrás ver tus estadísticas actualizadas.
 
 ---
 
-## 🧾 Historial de partidas
+## 📊 Estadísticas del jugador
 
-Cada partida se guarda automáticamente con:
-- Fecha y hora.  
-- Palabra objetivo.  
-- Intentos realizados.  
-- Resultado (ganado o perdido).  
+El juego guarda automáticamente tus estadísticas generales:
+- ✅ Partidas jugadas  
+- 🏆 Partidas ganadas  
+- 📈 Porcentaje de victorias  
+- 🔢 Promedio de intentos por partida  
+- ⏱️ Racha actual y racha máxima  
 
-Puedes consultarlo en la sección **📜 Registro** del menú principal.  
-Toda la información se guarda en `localStorage` (no se borra al cerrar el navegador).
+Estas se almacenan de forma local en `localStorage`, por lo que no se pierden al cerrar el navegador.
 
 ---
 
