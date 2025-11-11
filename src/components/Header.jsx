@@ -1,22 +1,45 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ onLengthChange, nickname, setNickname }) {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-      <Container>
-        <Navbar.Brand href="/">🧩 WordleTEC</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <NavLink className="nav-link" to="/">Wordle 5</NavLink>
-            <NavLink className="nav-link" to="/wordle6">Wordle 6</NavLink>
-            <NavLink className="nav-link" to="/wordle7">Wordle 7</NavLink>
-            <NavLink className="nav-link" to="/registro">Registro</NavLink>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <header className="bg-dark text-light p-3 d-flex justify-content-between align-items-center">
+      {/* Logo como botón */}
+      <div>
+        <Link to="/" className="text-light text-decoration-none">
+          <h3 className="mb-0" style={{ cursor: "pointer" }}>
+            WordleTEC
+          </h3>
+        </Link>
+      </div>
+
+      <div className="d-flex align-items-center">
+        <select
+          className="form-select me-3"
+          style={{ width: "150px", backgroundColor: "#1c1c1c", color: "#fff", border: "1px solid #3a3a3c" }}
+          onChange={(e) => onLengthChange(Number(e.target.value))}
+        >
+          <option value="5">Modo 5 letras</option>
+          <option value="6">Modo 6 letras</option>
+          <option value="7">Modo 7 letras</option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="Nickname"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          className="form-control me-3"
+          style={{ width: "160px", backgroundColor: "#1c1c1c", color: "#fff", border: "1px solid #3a3a3c" }}
+        />
+
+        <Link to="/" className="btn btn-secondary me-2">
+          Jugar
+        </Link>
+        <Link to="/stats" className="btn btn-secondary">
+          Stats
+        </Link>
+      </div>
+    </header>
   );
 }

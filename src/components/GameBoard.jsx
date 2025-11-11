@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-export default function GameBoard({ length }) {
+export default function GameBoard({ length, nickname }) {
   const [wordList, setWordList] = useState([]);
   const [target, setTarget] = useState("");
   const [guesses, setGuesses] = useState([]);
@@ -9,7 +9,7 @@ export default function GameBoard({ length }) {
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
 
-  const maxAttempts = 5; // 🔹 Siempre mostrar 5 filas
+  const maxAttempts = 6; // 🔹 Ahora 6 intentos como dice la guía
 
   useEffect(() => {
     fetch(`/words${length}.json`)
@@ -21,9 +21,20 @@ export default function GameBoard({ length }) {
       });
   }, [length]);
 
-  // 🔹 Escuchar el teclado y limpiar correctamente al reiniciar
   useEffect(() => {
     const handleKey = (e) => {
+      // --- Evitar interferir si el usuario está escribiendo en un input/textarea/contentEditable
+      const active = document.activeElement;
+      if (active) {
+        const tag = active.tagName;
+        const isEditable =
+          tag === "INPUT" ||
+          tag === "TEXTAREA" ||
+          active.isContentEditable;
+        if (isEditable) return; // no procesar teclas del juego mientras se escribe en un campo
+      }
+      // --- Fin de la protección contra inputs
+
       if (gameOver) return;
       if (e.key === "Enter") handleSubmit();
       else if (e.key === "Backspace")
@@ -43,7 +54,7 @@ export default function GameBoard({ length }) {
     const statuses = Array(length).fill("absent");
     const targetCopy = [...targetArray];
 
-    // 🔸 Marcamos las correctas
+    // Letras correctas
     guessArray.forEach((letter, i) => {
       if (targetArray[i] === letter) {
         statuses[i] = "correct";
@@ -51,7 +62,7 @@ export default function GameBoard({ length }) {
       }
     });
 
-    // 🔸 Luego las que están en la palabra pero en otra posición
+    // Letras presentes
     guessArray.forEach((letter, i) => {
       if (statuses[i] === "correct") return;
       const idx = targetCopy.indexOf(letter);
@@ -78,25 +89,20 @@ export default function GameBoard({ length }) {
   };
 
   const saveRecord = (won, attempts) => {
-    const history = JSON.parse(localStorage.getItem("wordleRecords") || "[]");
-    history.push({
-      fecha: new Date().toLocaleString(),
-      longitud: length,
-      resultado: won ? "Ganó" : "Perdió",
-      intentos: attempts,
-    });
-    localStorage.setItem("wordleRecords", JSON.stringify(history));
+    if (!nickname) return;
+    const stats = JSON.parse(localStorage.getItem("wordleStats") || "{}");
+    const userStats = stats[nickname] || {};
+    userStats[length] = { won, attempts };
+    stats[nickname] = userStats;
+    localStorage.setItem("wordleStats", JSON.stringify(stats));
   };
 
   const startNewGame = () => {
-    if (!wordList.length) return;
-
-    // 🛑 No permitir nuevo juego si no se terminó el actual
     if (!gameOver) {
-      setMessage("⚠️ Termina la partida antes de comenzar un nuevo juego.");
+      alert("⚠️ Termina la partida antes de iniciar una nueva.");
       return;
     }
-
+    if (!wordList.length) return;
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
     setTarget(randomWord.toLowerCase());
     setGuesses([]);
@@ -106,10 +112,10 @@ export default function GameBoard({ length }) {
   };
 
   return (
-    <div className="text-center">
+    <div className="gameboard-container text-center">
       <h3 className="mb-4">Wordle de {length} letras</h3>
 
-      {/* 🔹 Mostrar todas las filas (usadas o vacías) */}
+      {/* 🔹 Mostrar siempre las 6 filas */}
       {Array.from({ length: maxAttempts }).map((_, rowIndex) => {
         const guess = guesses[rowIndex];
         const isCurrent = rowIndex === guesses.length && !gameOver;

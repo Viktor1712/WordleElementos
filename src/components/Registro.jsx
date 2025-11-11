@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Registro() {
-  const [records, setRecords] = useState([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem("wordleRecords") || "[]");
-    setRecords(history);
+    const stored = JSON.parse(localStorage.getItem("wordleRecords") || "[]");
+    setHistory(stored);
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h3 className="mb-3 text-center">📊 Historial de partidas</h3>
-      {records.length === 0 ? (
-        <p className="text-center text-secondary">Aún no hay registros</p>
+    <div className="text-light text-center">
+      <h2 className="mb-4">Historial de Juegos</h2>
+      {history.length === 0 ? (
+        <p className="text-secondary">No hay registros aún.</p>
       ) : (
-        <table className="table table-dark table-striped text-center align-middle">
+        <table className="table table-dark table-bordered text-center w-75 mx-auto">
           <thead>
             <tr>
               <th>Fecha</th>
@@ -24,8 +24,8 @@ export default function Registro() {
             </tr>
           </thead>
           <tbody>
-            {records.map((r, i) => (
-              <tr key={i}>
+            {history.map((r, i) => (
+              <tr key={i} style={{ fontWeight: "bold" }}>
                 <td>{r.fecha}</td>
                 <td>{r.longitud}</td>
                 <td>{r.resultado}</td>

@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+# 🎮 Wordle Elementos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Wordle Elementos** es una recreación interactiva del clásico juego *Wordle*, desarrollada con **React**, **Bootstrap** y **Framer Motion**.  
+Incluye tres versiones del juego:  
+- Wordle de **5 letras**  
+- Wordle de **6 letras**  
+- Wordle de **7 letras**
 
-## Available Scripts
+Además, cuenta con un sistema de **registro de partidas** guardado en `localStorage`, animaciones fluidas y un diseño adaptable y elegante.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Tecnologías utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ⚛️ **React** – Librería principal para la interfaz.  
+- 💄 **Bootstrap 5** – Para estilos y componentes visuales.  
+- 🎬 **Framer Motion** – Animaciones de las casillas.  
+- 💾 **localStorage** – Registro local de partidas.  
+- 🧩 **Create React App** – Entorno base del proyecto.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📁 Estructura del proyecto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+WordleElementos/
+│
+├── public/
+│   ├── index.html
+│   ├── words5.json
+│   ├── words6.json
+│   ├── words7.json
+│
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx        # Barra de navegación superior
+│   │   ├── GameBoard.jsx     # Lógica y render del tablero
+│   │   └── Registro.jsx      # Historial de partidas
+│   │
+│   ├── App.jsx               # Enrutador principal y navegación
+│   ├── index.js              # Punto de entrada React
+│   ├── index.css             # Estilos generales
+│
+├── package.json
+├── README.md
+└── ...otros archivos de configuración
+```
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Instalación y ejecución
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sigue estos pasos para ejecutar el proyecto en tu máquina local 👇
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1️⃣ Clona el repositorio
+```bash
+git clone https://github.com/Viktor1712/WordleElementos.git
+```
 
-### `npm run eject`
+### 2️⃣ Ingresa al directorio del proyecto
+```bash
+cd WordleElementos
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3️⃣ Instala las dependencias
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Si ves algún error con `react-bootstrap`, asegúrate de instalarlo con:
+> ```bash
+> npm install react-bootstrap@2 bootstrap@5 framer-motion
+> ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4️⃣ Inicia el servidor de desarrollo
+```bash
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+El juego se abrirá automáticamente en tu navegador en:  
+👉 [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🕹️ Cómo jugar
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Elige el modo de juego desde la barra superior: **Wordle 5**, **Wordle 6** o **Wordle 7**.  
+2. Escribe una palabra del tamaño correspondiente y presiona **Enter** o el botón **Enviar**.  
+3. Los colores indican:
+   - 🟩 **Verde** → letra correcta en posición correcta.  
+   - 🟨 **Amarillo** → letra correcta en posición incorrecta.  
+   - ⬜ **Gris** → letra no presente.  
+4. Tienes **5 intentos** para adivinar la palabra.  
+5. Cuando termines una partida (ganes o pierdas), puedes comenzar un **Nuevo Juego**.  
+   - Si intentas reiniciar antes de terminar, el sistema te pedirá que finalices la partida actual.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🧾 Registro de partidas
 
-### Analyzing the Bundle Size
+El juego guarda automáticamente tus resultados (ganado/perdido, longitud, fecha e intentos) en el **historial local** del navegador (`localStorage`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Puedes ver tu historial desde la sección **Registro** en la barra superior.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎨 Estilo y diseño
 
-### Advanced Configuration
+- Colores y distribución inspirados en el *Wordle* original.  
+- Animaciones suaves en los cuadros de letras (efecto “flip”).  
+- Diseño adaptativo (responsive) mediante **Bootstrap 5**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🧠 Mejoras futuras
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Ranking global o integración con base de datos.  
+- Modo oscuro / claro.  
+- Palabras temáticas (animales, países, etc.).  
+- Versión en inglés.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 👨‍💻 Autor
+
+Desarrollado por **Víctor Mejías**  
+📦 Repositorio: [https://github.com/Viktor1712/WordleElementos](https://github.com/Viktor1712/WordleElementos)
+
+---
+
+
